@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    count: 1
+    count: 1,
+    fromData: {}
 }
 
 const stepperSlice = createSlice({
@@ -20,10 +21,13 @@ const stepperSlice = createSlice({
                 state.count = prevCount - 1
             }
         },
-
+        setFormData: (state, action) => {
+            state.fromData = action
+            console.log(state.fromData);
+        }
     }
 })
 
-export const { next, prev } = stepperSlice.actions
+export const { next, prev, setFormData } = stepperSlice.actions
 
 export default stepperSlice.reducer

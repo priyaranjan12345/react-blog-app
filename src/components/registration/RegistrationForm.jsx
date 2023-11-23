@@ -19,7 +19,6 @@ function RegistrationForm() {
         switch(step){
             case 1:
                 return <FirstStep/>
-
             case 2:
                 return <SecondStape/>
             case 3: 
@@ -29,7 +28,7 @@ function RegistrationForm() {
 
     return (
         <div>
-            <Box component="form" display="flex" justifyContent="center" alignItems="start" minHeight="100vh">
+            <Box display="flex" justifyContent="center" alignItems="start" minHeight="100vh">
                 <Card variant="outlined">
                     <CardContent>
                         <Stack direction="column" alignItems="center" spacing={2} margin={2}>

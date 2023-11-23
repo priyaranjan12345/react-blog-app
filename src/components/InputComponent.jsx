@@ -5,8 +5,10 @@ import React, { useId } from 'react'
 
 const InputComponent = React.forwardRef(
     function InputComponent({
-        label,
+        label = '',
+        placeholder = '',
         type = "text",
+        value = '',
         ...props
     }, ref) {
         const id = useId()
@@ -16,9 +18,10 @@ const InputComponent = React.forwardRef(
                 id={id} 
                 variant="outlined" 
                 label={label} 
-                placeholder='Enter Your Email' 
+                placeholder={placeholder}
                 type={type} 
                 ref={ref} 
+                value={value}
                 {...props} 
                 />
             </div>

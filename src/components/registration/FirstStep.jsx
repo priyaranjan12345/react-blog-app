@@ -9,8 +9,6 @@ function FirstStep() {
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
 
-    console.log(formData["firstName"]);
-
     function setName(data) {
         dispatch(setFormData({ ...formData, ...data }))
         dispatch(next())

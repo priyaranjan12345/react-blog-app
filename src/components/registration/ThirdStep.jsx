@@ -11,7 +11,7 @@ function ThirdStep() {
     const handleChange = (event) => {
         setChecked(event.target.checked,);
     };
-    const formData = useSelector(state => state.formData)
+    const formData = useSelector(state => state.stepper.formData)
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
 

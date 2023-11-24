@@ -13,7 +13,6 @@ const InputComponent = React.forwardRef(
     }, ref) {
         const id = useId()
         return (
-            <div>
                 <TextField 
                 id={id} 
                 variant="outlined" 
@@ -22,9 +21,9 @@ const InputComponent = React.forwardRef(
                 type={type} 
                 ref={ref} 
                 value={value}
+                fullWidth
                 {...props} 
                 />
-            </div>
         );
     }
 )

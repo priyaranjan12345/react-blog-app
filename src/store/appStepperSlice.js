@@ -2,32 +2,22 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     count: 1,
-    fromData: {}
+    formData: {}
 }
 
 const stepperSlice = createSlice({
-    name: "auth",
+    name: "stepper",
     initialState,
     reducers: {
-        next: (state) => {
-            const prevCount = state.count
-            if (prevCount < 3) {
-                state.count = prevCount + 1
-            }
-        },
-        prev: (state) => {
-            const prevCount = state.count
-            if (prevCount > 1) {
-                state.count = prevCount - 1
-            }
+        setIndex: (state, action) => {
+            state.count = action.payload
         },
         setFormData: (state, action) => {
-            state.fromData = action
-            console.log(state.fromData);
+            state.formData = action.payload
         }
     }
 })
 
-export const { next, prev, setFormData } = stepperSlice.actions
+export const { setIndex, setFormData } = stepperSlice.actions
 
 export default stepperSlice.reducer

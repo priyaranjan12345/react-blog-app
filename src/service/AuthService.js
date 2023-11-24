@@ -21,7 +21,7 @@ export class AuthService {
     }
 
     login({ email, password }) {
-        request(
+        return request(
             "POST",
             "auth/authenticate",
             {
@@ -29,6 +29,10 @@ export class AuthService {
                 password: password
             }
         )
+    }
+
+    saveToken(token) {
+        setAuthToken(token)
     }
 
     logout() {

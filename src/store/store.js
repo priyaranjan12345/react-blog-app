@@ -3,7 +3,7 @@ import stepperSlice from './appStepperSlice'
 
 const store = configureStore({
     reducer: {
-        auth: stepperSlice
+        stepper: stepperSlice
         // todo: add more slice
     }
 })

@@ -9,7 +9,7 @@ import { setFormData } from "../../store/appStepperSlice";
 function ThirdStep() {
     const [isChecked, setChecked] = useState(false)
     const handleChange = (event) => {
-        setChecked(event.target.checked,);
+        setChecked(event.target.checked);
     };
     const formData = useSelector(state => state.stepper.formData)
     const dispatch = useDispatch()

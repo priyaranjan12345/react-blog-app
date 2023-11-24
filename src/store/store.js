@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import stepperSlice from './appStepperSlice'
+import authSlice from './authSlice'
 
 const store = configureStore({
     reducer: {
-        stepper: stepperSlice
-        // todo: add more slice
+        stepper: stepperSlice,
+        auth: authSlice
     }
 })
 

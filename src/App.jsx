@@ -1,16 +1,15 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import AppHeader from "./components/AppHeader"
 import LoginPage from "./pages/LoginPage"
 import RegistrationPage from "./pages/RegistrationPage"
 
-
 function App() {
+  // check user is present or not on initial
+  
   return (
-
     <BrowserRouter>
-      <AppHeader></AppHeader>
+      <AppHeader/>
       <Routes>
         <Route path="/" element={<LoginPage />}></Route>
         <Route path="/home" element={<HomePage />}></Route>
@@ -18,7 +17,6 @@ function App() {
         <Route path="/register" element={<RegistrationPage />}></Route>
       </Routes>
     </BrowserRouter>
-
   )
 }
 

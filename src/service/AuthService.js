@@ -2,6 +2,7 @@ import { request, setAuthToken, removeAuthToken } from '../helper/axios_helper';
 
 export class AuthService {
     registerUser(formData) {
+        removeAuthToken()
         request(
             "POST",
             "register",
@@ -11,24 +12,20 @@ export class AuthService {
                 email: formData.email,
                 password: formData.password
             }
-        )
-            .then((response) => {
-                setAuthToken(response.data.token)
-            })
-            .catch((error) => {
-                console.log("login error: " + error);
-            });
+        );
     }
 
     login({ email, password }) {
+        removeAuthToken()
+        console.log(email +"  "+password);
         return request(
             "POST",
-            "auth/authenticate",
+            "login",
             {
                 email: email,
                 password: password
             }
-        )
+        );
     }
 
     saveToken(token) {

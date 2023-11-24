@@ -49,7 +49,7 @@ function LoginForm() {
                 password: data.password
             }).then((response) => {
                 setLoading(false)
-                authService.saveToken(response.token)
+                authService.saveToken(response.authToken)
             })
                 .catch((error) => {
                     setLoading(false)

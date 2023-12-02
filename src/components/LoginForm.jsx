@@ -1,14 +1,17 @@
-import { Stack, FormControlLabel, Card, Box, CardContent, Checkbox, Button, CircularProgress, Snackbar, IconButton } from '@mui/material'
+import { Stack, FormControlLabel, Card, Box, CardContent, Checkbox, Button, CircularProgress, Snackbar, IconButton, Avatar} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import InputComponent from './InputComponent';
 import authService from '../service/AuthService'
+import { login } from '../store/authSlice';
 import { Link } from 'react-router-dom';
-
 
 function LoginForm() {
     const { register, handleSubmit } = useForm()
+    const dispatch = useDispatch()
     const [isChecked, setChecked] = useState(false)
     const [isLoading, setLoading] = useState(false)
     const [snackbarData, setOpen] = React.useState({
@@ -47,10 +50,12 @@ function LoginForm() {
             authService.login({
                 email: data.email,
                 password: data.password
-            }).then((response) => {
-                setLoading(false)
-                authService.saveToken(response.authToken)
             })
+                .then((response) => {
+                    setLoading(false)
+                    authService.saveToken(response.authToken)
+                    dispatch(login(response))
+                })
                 .catch((error) => {
                     setLoading(false)
                     openSnackBar("Error during login, try again")
@@ -76,13 +81,16 @@ function LoginForm() {
         <>
             <Box display="flex"
                 justifyContent="center"
-                alignItems="start"
-                minHeight="100vh"
+                alignItems="center"
+                height="80vh"
             >
                 <Card variant="outlined">
                     <CardContent>
                         <Box component="form" onSubmit={handleSubmit(handleLogin)}>
-                            <Stack direction="column" alignItems="center" spacing={2} margin={2}>
+                            <Stack direction="column" alignItems="center" spacing={2} margin={2} sx={{ width: "350px" }}>
+                                <Avatar sx={{ m: 1, p: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon fontSize='large'/>
+                                </Avatar>
                                 <h2>Sign in to your account</h2>
                                 <p>
                                     Don&apos;t have any account? &nbsp;
@@ -115,6 +123,10 @@ function LoginForm() {
                                     </Button>
                                 }
                                 {!isLoading && <Button type='submit' variant="contained" color="primary"> Login </Button>}
+
+                                <Link to="/home" variant="body2" style={{ color: "blue", textDecoration: "underline" }}>
+                                    Forgot password? Reset
+                                </Link>
                             </Stack>
                         </Box>
                     </CardContent>

@@ -4,7 +4,7 @@ import stepperStore from "../store/store"
 
 function RegistrationPage() {
     return (
-        <div style={{ marginTop: '10%' }}>
+        <div>
             <Provider store={stepperStore}>
                 <RegistrationForm />
             </Provider>

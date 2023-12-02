@@ -20,7 +20,7 @@ const InputComponent = React.forwardRef(
                 placeholder={placeholder}
                 type={type} 
                 ref={ref} 
-                value={value}
+                value={value ?? ""}
                 fullWidth
                 {...props} 
                 />

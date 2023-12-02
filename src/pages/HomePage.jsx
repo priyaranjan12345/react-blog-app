@@ -1,6 +1,10 @@
+import Home from "../components/Home"
+
 function HomePage() {
   return (
-    <div style={{marginTop: '10%'}}>HomePage</div>
+    <div>
+      <Home/>
+    </div>
   )
 }
 

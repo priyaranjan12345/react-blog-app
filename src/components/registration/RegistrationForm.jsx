@@ -1,4 +1,5 @@
-import {  Stack, Box, Card, CardContent, Step, Stepper, StepLabel } from "@mui/material"
+import {  Stack, Box, Card, CardContent, Step, Stepper, StepLabel, Avatar } from "@mui/material"
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { setIndex } from "../../store/appStepperSlice"
@@ -36,10 +37,19 @@ function RegistrationForm() {
 
     return (
         <div>
-            <Box display="flex" justifyContent="center" alignItems="start" minHeight="100vh" >
+            <Box display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="80vh"
+                >
                 <Card variant="outlined">
                     <CardContent>
                         <Stack direction="column" alignItems="stretch" spacing={2} margin={2} sx={{width: "350px"}}>
+                            <center>
+                                <Avatar sx={{ m: 1, p: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon fontSize='large'/>
+                                </Avatar>
+                            </center>
                             <h2 style={{margin: "auto"}}>Create your account</h2>
                             <p style={{margin: "auto"}}>
                                 Already have an account? &nbsp;

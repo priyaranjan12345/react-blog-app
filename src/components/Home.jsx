@@ -1,13 +1,10 @@
-import { Grid, Container } from '@mui/material'
+import { Grid, Container, Box } from '@mui/material'
 import MainFeaturedPost from './MainFeaturedPost'
 import BlogCard from './BlogCard'
 
-
-
 function Home() {
     return (
-        <div style={{ marginTop: 100 }}>
-
+        <Box sx={{ flexGrow: 1, pl: 8 }}>
             <Container maxWidth="lg">
                 <MainFeaturedPost />
                 <Grid container spacing={4}>
@@ -22,7 +19,7 @@ function Home() {
                     }
                 </Grid>
             </Container>
-        </div>
+        </Box>
     )
 }
 

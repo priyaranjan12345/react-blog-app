@@ -3,13 +3,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 // import { useState, useEffect } from "react"
 // import authService from "./service/AuthService"
 // import { login, logout } from "./store/authSlice"
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import HomePage from "./pages/HomePage"
 import AppHeader from "./components/AppHeader"
 import LoginPage from "./pages/LoginPage"
 import RegistrationPage from "./pages/RegistrationPage"
 import AppFooter from "./components/AppFooter"
+import { useSelector } from "react-redux";
 
 function App() {
+  const themeMode = useSelector(state => state.theme.themeMode)
   // check user is present or not on initial
   // const [loading, setLoading] = useState(true)
   // const dispatch = useDispatch()
@@ -26,8 +30,15 @@ function App() {
   //     )
   // }, [])
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: themeMode,
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <AppHeader />
       <BrowserRouter>
         <Routes>
@@ -38,7 +49,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <AppFooter description= "This is a blog app where bloggers can post theit blogs." title= "Bloggy App" />
-    </>
+    </ThemeProvider>
   )
 }
 

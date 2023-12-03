@@ -4,18 +4,16 @@ import { Grid, Box, Typography } from '@mui/material';
 function MainFeaturedPost() {
 
     return (
-        <Paper
-            sx={{
-                margin: 'auto',
-                height: '44vh',
-                position: 'relative',
-                justifyContent: "center",
-                backgroundColor: 'grey.800',
-                color: '#fff',
-                mb: 4,
-                overflow: 'hidden'
-            }}
-        >
+        <Paper sx={{
+            margin: 'auto',
+            height: '44vh',
+            position: 'relative',
+            justifyContent: "center",
+            backgroundColor: 'grey.800',
+            color: '#fff',
+            mb: 4,
+            overflow: 'hidden'
+        }}>
             <Grid container>
                 <Grid item md={6}>
                     <Box

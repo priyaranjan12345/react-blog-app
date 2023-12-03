@@ -40,20 +40,19 @@ function RegistrationForm() {
             <Box display="flex"
                 justifyContent="center"
                 alignItems="center"
-                height="80vh"
                 >
                 <Card variant="outlined">
                     <CardContent>
                         <Stack direction="column" alignItems="stretch" spacing={2} margin={2} sx={{width: "350px"}}>
                             <center>
-                                <Avatar sx={{ m: 1, p: 1, bgcolor: 'secondary.main' }}>
+                                <Avatar sx={{bgcolor: 'secondary.main', padding: 4 }}>
                                     <LockOutlinedIcon fontSize='large'/>
                                 </Avatar>
                             </center>
-                            <h2 style={{margin: "auto"}}>Create your account</h2>
+                            <h2 style={{textAlign: 'center'}}>Create your account</h2>
                             <p style={{margin: "auto"}}>
                                 Already have an account? &nbsp;
-                                <Link to="/login" style={{ color: "black", textDecoration: "underline", fontSize: "16px" }}>
+                                <Link to="/login" style={{ color: "blue", textDecoration: "underline", fontSize: "16px" }}>
                                     Sign In
                                 </Link>
                             </p>

@@ -8,7 +8,6 @@ const InputComponent = React.forwardRef(
         label = '',
         placeholder = '',
         type = "text",
-        value = null,
         ...props
     }, ref) {
         const id = useId()
@@ -20,7 +19,6 @@ const InputComponent = React.forwardRef(
                 placeholder={placeholder}
                 type={type} 
                 ref={ref} 
-                value={value ?? ""}
                 fullWidth
                 {...props} 
                 />

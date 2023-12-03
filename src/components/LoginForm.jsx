@@ -1,4 +1,4 @@
-import { Stack, FormControlLabel, Card, Box, CardContent, Checkbox, Button, CircularProgress, Snackbar, IconButton, Avatar} from '@mui/material'
+import { Stack, FormControlLabel, Card, Box, CardContent, Checkbox, Button, CircularProgress, Snackbar, IconButton, Avatar } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react'
@@ -82,19 +82,20 @@ function LoginForm() {
             <Box display="flex"
                 justifyContent="center"
                 alignItems="center"
-                height="80vh"
             >
                 <Card variant="outlined">
                     <CardContent>
                         <Box component="form" onSubmit={handleSubmit(handleLogin)}>
                             <Stack direction="column" alignItems="center" spacing={2} margin={2} sx={{ width: "350px" }}>
-                                <Avatar sx={{ m: 1, p: 1, bgcolor: 'secondary.main' }}>
-                                    <LockOutlinedIcon fontSize='large'/>
+
+                                <Avatar sx={{ bgcolor: 'secondary.main', padding: 4 }}>
+                                    <LockOutlinedIcon fontSize='large' />
                                 </Avatar>
+
                                 <h2>Sign in to your account</h2>
                                 <p>
                                     Don&apos;t have any account? &nbsp;
-                                    <Link to="/register" style={{ color: "black", textDecoration: "underline", fontSize: "16px" }}>
+                                    <Link to="/register" style={{ color: "blue", textDecoration: "underline", fontSize: "16px" }}>
                                         Sign Up
                                     </Link>
                                 </p>

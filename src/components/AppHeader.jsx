@@ -17,7 +17,10 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authSlice';
 import ThemeSwitch from './ThemeSwitch';
+import authService from '../service/AuthService';
 
 const drawerWidth = 200;
 
@@ -85,12 +88,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-
-
-
 const AppHeader = () => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen((v) => !v);
@@ -100,8 +101,12 @@ const AppHeader = () => {
         setOpen(false);
     };
 
-    return (
+    const handleLogout = () => {
+        authService.logout();
+        dispatch(logout())
+    }
 
+    return (
         <Box sx={{ display: 'flex' }}>
             <CustomAppBar
                 open={open}
@@ -128,11 +133,10 @@ const AppHeader = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Stack direction="row" spacing={2} margin={1}>
-                        <IconButton color='inherit'>
+                        <IconButton onClick={handleLogout} color='inherit'>
                             <PowerSettingsNewIcon
                                 size="large"
-                                color="inherit"
-                            />
+                                color="inherit" />
                         </IconButton>
                         <IconButton color='inherit'>
                             <Badge badgeContent={10} color='error'>
@@ -208,9 +212,8 @@ const AppHeader = () => {
                     </ListItem>
                 </List>
             </Drawer>
-            <DrawerHeader sx={{mb: 6}}/>
+            <DrawerHeader sx={{ mb: 6 }} />
         </Box>
-
     );
 }
 

@@ -1,34 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-// import { useDispatch } from "react-redux"
-// import { useState, useEffect } from "react"
-// import authService from "./service/AuthService"
-// import { login, logout } from "./store/authSlice"
+import { useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import authService from "./service/AuthService"
+import { login, logout } from "./store/authSlice"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import HomePage from "./pages/HomePage"
 import AppHeader from "./components/AppHeader"
-import LoginPage from "./pages/LoginPage"
-import RegistrationPage from "./pages/RegistrationPage"
 import AppFooter from "./components/AppFooter"
 import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 
 function App() {
+  const dispatch = useDispatch()
   const themeMode = useSelector(state => state.theme.themeMode)
-  // check user is present or not on initial
-  // const [loading, setLoading] = useState(true)
-  // const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
-  // useEffect(() => {
-  //   authService.getCurrentUser()
-  //     .then((userData) => {
-  //       if (userData) {
-  //         dispatch(login(userData))
-  //       } else {
-  //         dispatch(logout())
-  //       }
-  //     }).finally(() => setLoading(false)
-  //     )
-  // }, [])
+  useEffect(() => {
+    const userData = authService.getCurrentUser()
+
+    if (userData != '') {
+      dispatch(login(userData))
+    } else {
+      dispatch(logout())
+    }
+
+    setLoading(false)
+
+  }, [dispatch])
 
   const darkTheme = createTheme({
     palette: {
@@ -36,21 +33,18 @@ function App() {
     },
   });
 
-  return (
+  return !loading ? (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <AppHeader />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />}></Route>
-          <Route path="/home" element={<HomePage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegistrationPage />}></Route>
-        </Routes>
-      </BrowserRouter>
-      <AppFooter description= "This is a blog app where bloggers can post theit blogs." title= "Bloggy App" />
+      <main>
+        <Outlet />
+      </main>
+      <AppFooter
+        description="This is a blog app where bloggers can post theit blogs."
+        title="Bloggy App" />
     </ThemeProvider>
-  )
+  ) : null
 }
 
 export default App

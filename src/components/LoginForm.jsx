@@ -53,8 +53,8 @@ function LoginForm() {
             })
                 .then((response) => {
                     setLoading(false)
-                    authService.saveToken(response.authToken)
-                    dispatch(login(response))
+                    authService.saveToken(response.data.authToken)
+                    dispatch(login(authService.getCurrentUser))
                 })
                 .catch((error) => {
                     setLoading(false)

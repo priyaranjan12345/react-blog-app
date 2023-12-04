@@ -53,6 +53,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 function ThemeSwitch() {
     const themeMode = useSelector(state => state.theme.themeMode)
+    const username = useSelector(state => state.auth.userData)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -75,7 +76,7 @@ function ThemeSwitch() {
                 sx={{ marginLeft: 2 }} 
                 checked= {themeMode === "dark"} 
                 onChange={onChangeButton}/>} 
-            label=""
+            label={"name: "+username}
         />
     )
 }

@@ -1,4 +1,4 @@
-import { request, setAuthToken, removeAuthToken } from '../helper/axios_helper';
+import { request, setAuthToken, removeAuthToken, getAuthToken } from '../helper/axios_helper';
 
 export class AuthService {
     registerUser(formData) {
@@ -17,10 +17,9 @@ export class AuthService {
 
     login({ email, password }) {
         removeAuthToken()
-        console.log(email +"  "+password);
         return request(
             "POST",
-            "login",
+            "auth/login",
             {
                 email: email,
                 password: password
@@ -28,12 +27,26 @@ export class AuthService {
         );
     }
 
+    getToken() {
+        return getAuthToken();
+    }
+
     saveToken(token) {
-        setAuthToken(token)
+        setAuthToken(token);
+    }
+
+    getCurrentUser() {
+        const token = getAuthToken();
+        if (token != '' && token != 'null' && token != 'undefined') {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.sub;
+        }
+
+        return '';
     }
 
     logout() {
-        removeAuthToken()
+        removeAuthToken();
     }
 }
 

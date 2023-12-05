@@ -26,10 +26,18 @@ function BlogCard(props) {
                     <Typography variant="subtitle1" color="text.secondary">
                         {post.publishDate}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography
+                        sx={{
+                            display: '-webkit-box',
+                            overflow: 'hidden',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 2,
+                        }}
+                        variant="subtitle1"
+                        paragraph>
                         {post.blogDescription}
                     </Typography>
-                    <Stack direction="row">
+                    <Stack direction="column">
                         <Typography variant="subtitle1" color="primary">
                             Continue reading...
                         </Typography>

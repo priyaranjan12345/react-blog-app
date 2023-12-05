@@ -9,7 +9,7 @@ function BlogTypeButton() {
         <FormControl>
             <FormLabel id="demo-row-radio-buttons-group-label">Blog Access Type</FormLabel>
             <RadioGroup
-                column
+                row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group">
                 <FormControlLabel value="PRIVATE" control={<Radio />} label="Private" />

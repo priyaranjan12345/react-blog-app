@@ -35,8 +35,18 @@ export class BlogService {
         );
     }
 
-    createBlog() { 
+    createBlog({
+        blogTitle,
+        blogDescription,
+        blogCompleted,
+        blogType
+    }) { 
         // update by form-data
+        // date and image
+        const formData = new FormData()
+        formData.append(blogTitle)
+        formData.append(blogDescription)
+
      }
     deleteBlog() {
         // delete only my blog

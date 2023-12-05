@@ -18,7 +18,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { logout } from '../../store/authSlice';
 import ThemeSwitch from './ThemeSwitch';
 import authService from '../../service/AuthService';
@@ -91,7 +91,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const AppHeader = () => {
     const theme = useTheme();
+    const location = useLocation();
     const [open, setOpen] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -106,6 +108,12 @@ const AppHeader = () => {
     const handleLogout = () => {
         authService.logout();
         dispatch(logout())
+    }
+
+    const onTapBlogPostBtn = () => {
+        if (location.pathname != "/blog-post") {
+            navigate("/blog-post")
+        }
     }
 
     return (
@@ -136,7 +144,7 @@ const AppHeader = () => {
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Stack direction="row" spacing={2} margin={1}>
                         <Button
-                            onClick={() => { navigate("/blog-post") }}
+                            onClick={onTapBlogPostBtn}
                             variant="contained"
                             size="small"
                             sx={{ fontWeight: 'bold' }} disableElevation>

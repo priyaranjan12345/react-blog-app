@@ -44,5 +44,5 @@ export class BlogService {
     updateBlog() { }
 }
 
-const blogService = BlogService()
+const blogService = new BlogService()
 export default blogService

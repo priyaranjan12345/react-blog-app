@@ -1,4 +1,4 @@
-import { Toolbar, IconButton, Box, Stack, Badge, Typography } from '@mui/material'
+import { Toolbar, IconButton, Box, Stack, Badge, Typography, Button } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Divider from '@mui/material/Divider';
@@ -18,9 +18,10 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../store/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../store/authSlice';
 import ThemeSwitch from './ThemeSwitch';
-import authService from '../service/AuthService';
+import authService from '../../service/AuthService';
 
 const drawerWidth = 200;
 
@@ -92,6 +93,7 @@ const AppHeader = () => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setOpen((v) => !v);
@@ -133,6 +135,13 @@ const AppHeader = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Stack direction="row" spacing={2} margin={1}>
+                        <Button
+                            onClick={() => { navigate("/blog-post") }}
+                            variant="contained"
+                            size="small"
+                            sx={{ fontWeight: 'bold' }} disableElevation>
+                            Post a blog
+                        </Button>
                         <IconButton onClick={handleLogout} color='inherit'>
                             <PowerSettingsNewIcon
                                 size="large"
@@ -174,6 +183,7 @@ const AppHeader = () => {
                             <ListItemText primary='Profile' sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                         <ListItemButton
+                            onClick={() => { navigate("/my-blogs") }}
                             sx={{
                                 minHeight: 48,
                                 justifyContent: open ? 'initial' : 'center',

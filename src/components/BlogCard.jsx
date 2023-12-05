@@ -3,10 +3,11 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import { CardMedia, Stack, Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 
 function BlogCard(props) {
-    //   const { post } = props;
+    const { post } = props;
 
     return (
         <CardActionArea component="a" href="#">
@@ -15,21 +16,18 @@ function BlogCard(props) {
                     component="img"
                     sx={{ maxWidth: 200, borderRadius: '6px' }}
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1200px-Shaqi_jrvej.jpg"
-                // image={post.image}
-                // alt={post.imageLabel}
+                    // src={post.image}
+                    alt={post.blogId}
                 />
                 <CardContent sx={{ flex: 1 }}>
                     <Typography component="h2" variant="h5">
-                        {/* {post.title} */}
-                        Title
+                        {post.blogTitle}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                        {/* {post.date} */}
-                        20th Nov 2023
+                        {post.publishDate}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        {/* {post.description} */}
-                        Nature, in the broadest sense, is the physical world or universe.
+                        {post.blogDescription}
                     </Typography>
                     <Stack direction="row">
                         <Typography variant="subtitle1" color="primary">
@@ -37,7 +35,7 @@ function BlogCard(props) {
                         </Typography>
                         <Box flex={2}></Box>
                         <Typography variant="subtitle1" color="primary">
-                            Author: Priyaranjan Mantri
+                            Author: {post.bloggerName}
                         </Typography>
                     </Stack>
                 </CardContent>
@@ -46,14 +44,16 @@ function BlogCard(props) {
     );
 }
 
-// BlogCard.propTypes = {
-//   post: PropTypes.shape({
-//     date: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired,
-//     imageLabel: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
+BlogCard.propTypes = {
+    post: PropTypes.shape({
+        blogId: PropTypes.number.isRequired,
+        blogTitle: PropTypes.string.isRequired,
+        blogDescription: PropTypes.string.isRequired,
+        blogType: PropTypes.string.isRequired,
+        blogImage: PropTypes.string.isRequired,
+        bloggerName: PropTypes.string.isRequired,
+        publishDate: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 export default BlogCard;

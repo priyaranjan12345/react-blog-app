@@ -1,7 +1,7 @@
 import { Switch, FormControlLabel } from '@mui/material';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeTheme } from '../store/themeSlice';
+import { changeTheme } from '../../store/themeSlice';
 import { useEffect } from 'react';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -53,30 +53,28 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 function ThemeSwitch() {
     const themeMode = useSelector(state => state.theme.themeMode)
-    const username = useSelector(state => state.auth.userData)
     const dispatch = useDispatch()
 
     useEffect(() => {
         document.querySelector("html").classList.remove("light", "dark");
         document.querySelector("html").classList.add(themeMode);
-      }, [themeMode]);
+    }, [themeMode]);
 
     const onChangeButton = (e) => {
         const darkModeStatus = e.currentTarget.checked;
         if (darkModeStatus) {
-          dispatch(changeTheme("dark"))
+            dispatch(changeTheme("dark"))
         } else {
             dispatch(changeTheme("light"))
         }
-      };
+    };
 
     return (
         <FormControlLabel
-            control={<MaterialUISwitch 
-                sx={{ marginLeft: 2 }} 
-                checked= {themeMode === "dark"} 
-                onChange={onChangeButton}/>} 
-            label={"name: "+username}
+            control={<MaterialUISwitch
+                sx={{ marginLeft: 2 }}
+                checked={themeMode === "dark"}
+                onChange={onChangeButton} />}
         />
     )
 }

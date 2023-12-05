@@ -5,10 +5,12 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import AuthLayout from './components/AuthLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegistrationPage from './pages/RegistrationPage.jsx'
-import AuthLayout from './components/AuthLayout.jsx'
+import MyBlogPage from './pages/MyBlogPage.jsx'
+import BlogPostPage from './pages/BlogPostPage.jsx'
 
 const router = createBrowserRouter([{
   path: "/",
@@ -22,6 +24,25 @@ const router = createBrowserRouter([{
           <HomePage />
         </AuthLayout>
 
+      )
+    },
+    {
+      path: "/my-blogs",
+      element: (
+        <AuthLayout requiredAuth={true}>
+          {" "}
+          <MyBlogPage />
+        </AuthLayout>
+
+      )
+    },
+    {
+      path: "/blog-post",
+      element: (
+        <AuthLayout requiredAuth={true}>
+          {" "}
+          <BlogPostPage />
+        </AuthLayout>
       )
     },
     {

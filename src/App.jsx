@@ -4,7 +4,7 @@ import authService from "./service/AuthService"
 import { login, logout } from "./store/authSlice"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppHeader from "./components/AppHeader"
+import AppHeader from "./components/header/AppHeader"
 import AppFooter from "./components/AppFooter"
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";

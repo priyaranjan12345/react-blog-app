@@ -1,9 +1,17 @@
-import { } from 'react'
+import { useState } from 'react'
 import { Box, Container, Paper, TextField, Stack, Button, Typography, Grid, FormControlLabel, Checkbox } from '@mui/material'
 import UploadImageButton from './UploadImageButton'
 import BlogTypeButton from './BlogTypeButton'
 
 function BlogPostForm() {
+    const [image, setImage] = useState(null)
+
+    const onImageSelect = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
+
     return (
         <Box sx={{ flexGrow: 1, pl: 8 }}>
             <Container sx={{ paddingBottom: 4 }}>
@@ -40,17 +48,19 @@ function BlogPostForm() {
                             <Stack
                                 direction='column'
                                 spacing={2}
+                                padding={2}
                                 alignItems='center'
                                 sx={{ borderStyle: 'solid', borderWidth: 1, borderColor: '#bdbdbd' }}>
-                                <Typography variant="subtitle1" color="text.secondary">
+                                {!image && <Typography variant="subtitle1" color="text.secondary">
                                     Select blog image
-                                </Typography>
-                                <UploadImageButton />
+                                </Typography>}
+                                {image && <img alt="preview image" src={image} width="300" height="400" />}
+                                <UploadImageButton onChange={onImageSelect} />
                             </Stack>
                         </Grid>
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-                        <Button variant="contained">Post a blog</Button>
+                        <Button variant="contained">Post</Button>
                     </Box>
                 </Paper>
             </Container>

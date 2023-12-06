@@ -175,6 +175,7 @@ const AppHeader = () => {
                 <List>
                     <ListItem disablePadding sx={{ display: 'block' }}>
                         <ListItemButton
+                            onClick={() => { navigate("/profile") }}
                             sx={{
                                 minHeight: 48,
                                 justifyContent: open ? 'initial' : 'center',

@@ -3,11 +3,9 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8081/blog-api/v1/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-export const request = (method, url, data) => {
-    let headers = {}
-
+export const request = (method, url, data, headers = {}) => {
     if (getAuthToken() !== null && getAuthToken() !== 'null') {
-        headers = { "Authorization": `Bearer ${getAuthToken()}` }
+        headers = { ...headers, "Authorization": `Bearer ${getAuthToken()}` }
     }
 
     return axios({

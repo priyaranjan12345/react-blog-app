@@ -35,23 +35,50 @@ export class BlogService {
         );
     }
 
-    createBlog({
-        blogTitle,
-        blogDescription,
-        blogCompleted,
-        blogType
-    }) { 
-        // update by form-data
-        // date and image
+    createBlog({ ...data }) {
         const formData = new FormData()
-        formData.append(blogTitle)
-        formData.append(blogDescription)
 
-     }
-    deleteBlog() {
-        // delete only my blog
-     }
-    updateBlog() { }
+        formData.append("blogTitle", data.blogTitle)
+        formData.append("blogDescription", data.blogDescription)
+        formData.append("publishDate", "2023-12-03T07:10:56.961")
+        formData.append("blogType", data.blogType)
+        formData.append("completed", data.blogCompleted)
+        formData.append("blogImage", data.blogImage)
+
+        return request(
+            "POST",
+            "app/create-blog",
+            formData,
+            { "Content-Type": "multipart/form-data" },
+        );
+
+    }
+
+    updateBlog({ ...data }, blogId) {
+        const formData = new FormData()
+
+        formData.append("blogTitle", data.blogTitle)
+        formData.append("blogDescription", data.blogDescription)
+        formData.append("publishDate", "2023-12-03T07:10:56.961")
+        formData.append("blogType", data.blogType)
+        formData.append("completed", data.blogCompleted)
+        formData.append("blogImage", data.blogImage)
+
+        return request(
+            "PUT",
+            "app/update-blog/" + blogId,
+            formData,
+            { "Content-Type": "multipart/form-data" },
+        );
+    }
+
+    deleteBlog(blogId) {
+        return request(
+            "DELETE",
+            "app/delete-blog/" + blogId,
+        );
+    }
+
 }
 
 const blogService = new BlogService()

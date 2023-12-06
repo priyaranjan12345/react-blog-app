@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage.jsx'
 import RegistrationPage from './pages/RegistrationPage.jsx'
 import MyBlogPage from './pages/MyBlogPage.jsx'
 import BlogPostPage from './pages/BlogPostPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const router = createBrowserRouter([{
   path: "/",
@@ -42,6 +43,15 @@ const router = createBrowserRouter([{
         <AuthLayout requiredAuth={true}>
           {" "}
           <BlogPostPage />
+        </AuthLayout>
+      )
+    },
+    {
+      path: "/profile",
+      element: (
+        <AuthLayout requiredAuth={true}>
+          {" "}
+          <ProfilePage />
         </AuthLayout>
       )
     },

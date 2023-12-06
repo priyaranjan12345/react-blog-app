@@ -3,20 +3,22 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import React from 'react';
 
-function BlogTypeButton() {
+const BlogTypeButton = React.forwardRef(function BlogTypeButton({ ...props }, ref) {
     return (
-        <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">Blog Access Type</FormLabel>
+        <FormControl component="fieldset">
+            <FormLabel component="legend">Blog Access Type</FormLabel>
             <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group">
+                aria-label="blog-access-type"
+                defaultValue="PUBLIC"
+                {...props}
+                ref={ref}>
                 <FormControlLabel value="PRIVATE" control={<Radio />} label="Private" />
-                <FormControlLabel value="PUBLIC" control={<Radio />} label="Pulic" />
+                <FormControlLabel value="PUBLIC" control={<Radio />} label="Public" />
             </RadioGroup>
         </FormControl>
     )
-}
+})
 
 export default BlogTypeButton

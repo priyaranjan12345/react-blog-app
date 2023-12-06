@@ -2,14 +2,29 @@ import { useState } from 'react'
 import { Box, Container, Paper, TextField, Stack, Button, Typography, Grid, FormControlLabel, Checkbox } from '@mui/material'
 import UploadImageButton from './UploadImageButton'
 import BlogTypeButton from './BlogTypeButton'
+import { useForm } from 'react-hook-form'
+import blogService from '../../service/BlogService'
 
 function BlogPostForm() {
-    const [image, setImage] = useState(null)
+    const { register, handleSubmit, setValue } = useForm();
+    const [image, setImage] = useState(null);
+
+    const handleChange = (e) => {
+        setValue('blogType', e.target.value)
+        console.log(e.target.value);
+    }
 
     const onImageSelect = (event) => {
         if (event.target.files && event.target.files[0]) {
             setImage(URL.createObjectURL(event.target.files[0]));
+            console.log(event.target.files[0]);
+            setValue('blogImage', event.target.files[0])
         }
+        console.log(event.target.files[0]);
+    }
+
+    const handleBlogPost = (data) => {
+        blogService.createBlog(data)
     }
 
     return (
@@ -23,46 +38,57 @@ function BlogPostForm() {
                 </Typography>
             </Container>
             <Container maxWidth="lg">
-                <Paper elevation={1} sx={{ margin: 1, padding: 1 }}>
-                    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-                        <Grid item xs={12} md={8}>
-                            <Stack direction='column' spacing={2} alignItems='stretch' >
-                                <TextField id="outlined-basic" label="Blog Title" variant="outlined" fullWidth />
-                                <TextField id="outlined-basic" label="Blog Description" variant="outlined" rows={4} fullWidth multiline />
-                                <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-                                    <Grid item xs={12} md={4}>
-                                        <BlogTypeButton />
+                <form onSubmit={handleSubmit(handleBlogPost)} id='blogPostForm'>
+                    <Paper elevation={1} sx={{ margin: 1, padding: 1 }}>
+                        <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+                            <Grid item xs={12} md={8}>
+                                <Stack direction='column' spacing={2} alignItems='stretch' >
+                                    <TextField
+                                        id="blogTitle"
+                                        label="Blog Title"
+                                        variant="outlined"
+                                        fullWidth
+                                        {...register("blogTitle", { required: true })} />
+                                    <TextField
+                                        id="blogDescription"
+                                        label="Blog Description"
+                                        variant="outlined"
+                                        rows={4}
+                                        fullWidth
+                                        multiline
+                                        {...register("blogDescription", { required: true })} />
+                                    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+                                        <Grid item xs={12} md={4}>
+                                            <BlogTypeButton {...register("blogType", { required: false, onChange: handleChange })} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <FormControlLabel id='checkboxLabel'
+                                                control={<Checkbox id='blogCompleted' name="blogCompleted" {...register("blogCompleted", { required: true })} />}
+                                                label="Writing completed" />
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox name="isChecked" />
-                                            }
-                                            label="Writing completed"
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Stack>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={4} >
+                                <Stack
+                                    direction='column'
+                                    spacing={2}
+                                    padding={2}
+                                    alignItems='center'
+                                    sx={{ borderStyle: 'solid', borderWidth: 1, borderColor: '#bdbdbd' }}>
+                                    {!image && <Typography variant="subtitle1" color="text.secondary">
+                                        Select blog image
+                                    </Typography>}
+                                    {image && <img alt="preview image" src={image} width="300" height="400" />}
+                                    <UploadImageButton  {...register("blogImage", { required: false, onChange: onImageSelect })} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={4} >
-                            <Stack
-                                direction='column'
-                                spacing={2}
-                                padding={2}
-                                alignItems='center'
-                                sx={{ borderStyle: 'solid', borderWidth: 1, borderColor: '#bdbdbd' }}>
-                                {!image && <Typography variant="subtitle1" color="text.secondary">
-                                    Select blog image
-                                </Typography>}
-                                {image && <img alt="preview image" src={image} width="300" height="400" />}
-                                <UploadImageButton onChange={onImageSelect} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-                        <Button variant="contained">Post</Button>
-                    </Box>
-                </Paper>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+                            <Button type='submit' variant="contained">Post</Button>
+                        </Box>
+                    </Paper>
+                </form>
             </Container>
         </Box>
     )

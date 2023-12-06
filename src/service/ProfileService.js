@@ -1,5 +1,12 @@
+import { request } from "../helper/axios_helper";
+
 export class ProfileService {
-    getMyProfile() {}
+    getMyProfile() {
+        return request(
+            "GET",
+            "profile/profile-details"
+        );
+    }
 }
 
 const profileService = new ProfileService();

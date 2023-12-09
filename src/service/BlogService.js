@@ -37,10 +37,11 @@ export class BlogService {
 
     createBlog({ ...data }) {
         const formData = new FormData()
+        const date = new Date().toJSON().replace("Z", "");
 
         formData.append("blogTitle", data.blogTitle)
         formData.append("blogDescription", data.blogDescription)
-        formData.append("publishDate", "2023-12-03T07:10:56.961")
+        formData.append("publishDate", date)
         formData.append("blogType", data.blogType)
         formData.append("completed", data.blogCompleted)
         formData.append("blogImage", data.blogImage)
@@ -56,10 +57,11 @@ export class BlogService {
 
     updateBlog({ ...data }, blogId) {
         const formData = new FormData()
+        const date = new Date().toJSON().replace("Z", "");
 
         formData.append("blogTitle", data.blogTitle)
         formData.append("blogDescription", data.blogDescription)
-        formData.append("publishDate", "2023-12-03T07:10:56.961")
+        formData.append("publishDate", date)
         formData.append("blogType", data.blogType)
         formData.append("completed", data.blogCompleted)
         formData.append("blogImage", data.blogImage)

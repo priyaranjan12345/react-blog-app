@@ -28,7 +28,7 @@ function BlogPostForm() {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, pl: 8 }}>
+        <Box sx={{ flexGrow: 1, pl: 8, width: '100%px' }}>
             <Container sx={{ paddingBottom: 4 }}>
                 <Typography component="h2" variant="h5">
                     Blog Post

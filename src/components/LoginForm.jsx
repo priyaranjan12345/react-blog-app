@@ -34,33 +34,25 @@ function LoginForm() {
         });
     }
 
-    const toggleLoading = () => {
-        setLoading(!isLoading)
-    }
-
     const handleChange = (event) => {
         setChecked(event.target.checked,);
     };
 
-    const handleLogin = (data) => {
+    const handleLogin = async (data) => {
         if (!isChecked) {
             openSnackBar("Please accept terms and conditions to login")
-        } else {
-            setLoading(true)
-            authService.login({
-                email: data.email,
-                password: data.password
-            })
-                .then((response) => {
-                    setLoading(false)
-                    authService.saveToken(response.data.authToken)
-                    dispatch(login(authService.getCurrentUser))
-                })
-                .catch((error) => {
-                    setLoading(false)
-                    openSnackBar("Error during login, try again")
-                    console.log("login error: " + error);
-                })
+            return;
+        }
+        setLoading(true)
+        try {
+            const response = await authService.login({ email: data.email, password: data.password })
+            authService.saveToken(response.data.authToken)
+            dispatch(login(authService.getUsername()))
+        } catch (error) {
+            openSnackBar("Error during login, try again")
+            console.log("login error: " + error);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -103,13 +95,13 @@ function LoginForm() {
                                     label="Email"
                                     type="email"
                                     placeholder="Enter your email"
-                                    {...register("email", { required: true })}
+                                    {...register("email", { required: true, disabled: isLoading })}
                                 />
                                 <InputComponent
                                     label="Password"
                                     type="password"
                                     placeholder="Enter your password"
-                                    {...register("password", { required: true })}
+                                    {...register("password", { required: true, disabled: isLoading })}
                                 />
                                 <FormControlLabel
                                     control={
@@ -118,7 +110,7 @@ function LoginForm() {
                                     label="Please accept terms and conditions"
                                 />
                                 {
-                                    isLoading && <Button disabled variant="contained" color="primary" onClick={toggleLoading}>
+                                    isLoading && <Button disabled variant="contained" color="primary">
                                         <CircularProgress variant="indeterminate" color='inherit' size={20} sx={{ marginRight: 1 }} />
                                         Loading…
                                     </Button>

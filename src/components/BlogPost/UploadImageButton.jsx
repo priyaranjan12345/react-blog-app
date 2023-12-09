@@ -1,8 +1,7 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Button } from '@mui/material';
-import PropTypes from 'prop-types';
-import React from 'react';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -16,26 +15,18 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function UploadImageButton({...props}) {
+const UploadImageButton = React.forwardRef(function UploadImageButton({...props}, ref) {
   return (
     <Button component="label" variant="outlined" startIcon={<CloudUploadIcon />}>
       Upload file
       <VisuallyHiddenInput
         type="file"
-        accept='image/png. image/jpg, image/jpeg'
+        accept='image/png, image/jpg, image/jpeg'
+        ref={ref}
         {...props}
          />
     </Button>
   )
-}
+})
 
-// UploadImageButton.defaultProps = {
-//   onChange: () => { },
-// };
-
-// UploadImageButton.propTypes = {
-//   onChange: PropTypes.func.isRequired,
-// };
-
-
-export default React.forwardRef(UploadImageButton)
+export default UploadImageButton

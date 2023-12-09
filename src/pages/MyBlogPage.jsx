@@ -5,20 +5,40 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import blogService from '../service/BlogService'
 
+const enumObj = {
+    LOADING: "loading",
+    SUCCESS: "sucess",
+    ERROR: "error"
+}
+
+Object.freeze(enumObj);
+
+enumObj.fixed
+
 function MyBlogPage() {
-    const [blogs, setBlogs] = useState([])
-    const username = useSelector(state => state.auth.userData)
+    const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const username = useSelector(state => state.auth.userData);
+
+    const myBlogs = async () => {
+        try {
+            const response = await blogService.getMyBlogs();
+            setBlogs(response.data)
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const deleteMyBlog = () => {
+        // call delete blog api
+        // on success : myBlogs();
+        // on error show toast
+    }
 
     useEffect(() => {
-        blogService.getMyBlogs()
-            .then((response) => {
-                const data = response.data;
-                console.log(data);
-                setBlogs(data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        myBlogs();
     }, [])
 
     return (
@@ -29,7 +49,7 @@ function MyBlogPage() {
                         My Blog Posts
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                        {username}
+                        {"Username: " + username}
                     </Typography>
                 </Container>
                 <MainFeaturedPost />

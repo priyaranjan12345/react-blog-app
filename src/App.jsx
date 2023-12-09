@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import authService from "./service/AuthService"
 import { login, logout } from "./store/authSlice"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import AppHeader from "./components/header/AppHeader"
 import AppFooter from "./components/AppFooter"
@@ -15,7 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const userData = authService.getCurrentUser()
+    const userData = authService.getUsername()
 
     if (userData != '') {
       dispatch(login(userData))
@@ -35,14 +36,16 @@ function App() {
 
   return !loading ? (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <AppHeader />
-      <main>
-        <Outlet />
-      </main>
-      <AppFooter
-        description="This is a blog app where bloggers can post theit blogs."
-        title="Bloggy App" />
+      <Box sx={{display: 'flex', flexDirection: 'column', height: '100vh', width: '100%'}}>
+        <CssBaseline />
+        <AppHeader />
+        <main>
+          <Outlet />
+        </main>
+        <AppFooter
+          description="This is a blog app where bloggers can post theit blogs."
+          title="Bloggy App" />
+      </Box>
     </ThemeProvider>
   ) : null
 }

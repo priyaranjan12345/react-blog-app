@@ -56,7 +56,6 @@ function RegistrationForm() {
                                     Sign In
                                 </Link>
                             </p>
-                            <Box sx={{ width: '100%' }}>
                             <Stepper activeStep={currentIndex-1} alternativeLabel>
                                 {
                                     steps.map(
@@ -68,7 +67,6 @@ function RegistrationForm() {
                                     )
                                 }
                             </Stepper>
-                            </Box>
                             {showStep(currentIndex)}
                         </Stack>
                     </CardContent>

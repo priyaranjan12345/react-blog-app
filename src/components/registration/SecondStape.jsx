@@ -39,18 +39,32 @@ function SecondStape() {
                         {...register("state", { required: true, onChange: onChange })}
                     />
                     <InputComponent
-                        label="District"
+                        label="City"
                         type="text"
-                        value={formData["district"] ?? ""}
-                        placeholder="Enter your district name"
-                        {...register("district", { required: true, onChange: onChange })}
+                        value={formData["city"] ?? ""}
+                        placeholder="Enter your city name"
+                        {...register("city", { required: true, onChange: onChange })}
                     />
                     <InputComponent
-                        label="Area Details"
+                        label="Locality"
                         type="text"
-                        value={formData["areaDetails"] ?? ""}
-                        placeholder="Enter your area details name"
-                        {...register("areaDetails", { required: true, onChange: onChange })}
+                        value={formData["locality"] ?? ""}
+                        placeholder="Enter your locality name"
+                        {...register("locality", { required: true, onChange: onChange })}
+                    />
+                    <InputComponent
+                        label="Pincode"
+                        type="text"
+                        value={formData["pinCode"] ?? ""}
+                        placeholder="Enter your pincode name"
+                        {...register("pinCode", { required: true, onChange: onChange })}
+                    />
+                    <InputComponent
+                        label="Local Address"
+                        type="text"
+                        value={formData["localAddress"] ?? ""}
+                        placeholder="Enter your local address"
+                        {...register("localAddress", { required: true, onChange: onChange })}
                     />
                     <Button type="submit" variant="contained" color="primary">Next</Button>
                 </Stack>

@@ -1,13 +1,39 @@
-import { useState } from 'react'
-import { Box, Container, Paper, TextField, Stack, Button, Typography, Grid, FormControlLabel, Checkbox } from '@mui/material'
+import React, { useState } from 'react'
+import {
+    Box, Container, Paper, TextField,
+    Stack, Button, Typography, Grid, FormControlLabel,
+    Checkbox, Snackbar, IconButton, CircularProgress
+} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
 import UploadImageButton from './UploadImageButton'
 import BlogTypeButton from './BlogTypeButton'
 import { useForm } from 'react-hook-form'
 import blogService from '../../service/BlogService'
 
 function BlogPostForm() {
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, setValue, reset } = useForm();
     const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false)
+
+    const [snackbarData, setOpen] = useState({
+        open: false,
+        message: ""
+    });
+
+    const closeSnackBar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const openSnackBar = (message) => {
+        setOpen({
+            open: true,
+            message: message
+        });
+    }
 
     const handleChange = (e) => {
         setValue('blogType', e.target.value)
@@ -23,9 +49,33 @@ function BlogPostForm() {
         console.log(event.target.files[0]);
     }
 
-    const handleBlogPost = (data) => {
-        blogService.createBlog(data)
+    const handleBlogPost = async (data) => {
+        setLoading(true)
+        try {
+            const response = await blogService.createBlog(data);
+            openSnackBar("Blog posted with id: ", response.data.blogId);
+            reset();
+        } catch (error) {
+            console.log("blog post error: ", error);
+            openSnackBar("Unable to post blog, try again");
+            reset();
+        } finally {
+            setLoading(false);
+        }
     }
+
+    const action = (
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={closeSnackBar}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <Box sx={{ flexGrow: 1, pl: 8, width: '100%px' }}>
@@ -34,7 +84,7 @@ function BlogPostForm() {
                     Blog Post
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                    username
+                    Share your ideas through your blogs.
                 </Typography>
             </Container>
             <Container maxWidth="lg">
@@ -63,7 +113,10 @@ function BlogPostForm() {
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             <FormControlLabel id='checkboxLabel'
-                                                control={<Checkbox id='blogCompleted' name="blogCompleted" {...register("blogCompleted", { required: true })} />}
+                                                control={<Checkbox
+                                                    id='blogCompleted'
+                                                    name="blogCompleted"
+                                                    {...register("blogCompleted", { required: true })} />}
                                                 label="Writing completed" />
                                         </Grid>
                                     </Grid>
@@ -85,11 +138,25 @@ function BlogPostForm() {
                             </Grid>
                         </Grid>
                         <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-                            <Button type='submit' variant="contained">Post</Button>
+                            {
+                                loading && <Button disabled variant="contained" color="primary">
+                                    <CircularProgress variant="indeterminate" color='inherit' size={20} sx={{ marginRight: 1 }} />
+                                    Loading…
+                                </Button>
+                            }
+                            {!loading && <Button type='submit' variant="contained" color="primary"> Post </Button>}
                         </Box>
                     </Paper>
                 </form>
             </Container>
+            <Snackbar
+                open={snackbarData.open}
+                autoHideDuration={2000}
+                message={snackbarData.message}
+                onClose={closeSnackBar}
+                action={action}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            />
         </Box>
     )
 }

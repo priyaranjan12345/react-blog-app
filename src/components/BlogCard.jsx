@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import { CardMedia, Stack, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
-
 function BlogCard(props) {
     const { post } = props;
 
@@ -14,9 +13,8 @@ function BlogCard(props) {
             <Card sx={{ display: 'flex', borderRadius: '6px' }}>
                 <CardMedia
                     component="img"
-                    sx={{ maxWidth: 200, borderRadius: '6px' }}
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1200px-Shaqi_jrvej.jpg"
-                    // src={post.image}
+                    sx={{ maxWidth: 200, height: 200, borderRadius: '6px' }}
+                    src={"http://localhost:8081/blog-api/v1/app/blog-image/"+post.blogImage}
                     alt={post.blogId}
                 />
                 <CardContent sx={{ flex: 1 }}>
@@ -31,7 +29,7 @@ function BlogCard(props) {
                             display: '-webkit-box',
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',
-                            WebkitLineClamp: 2,
+                            WebkitLineClamp: 1,
                         }}
                         variant="subtitle1"
                         paragraph>

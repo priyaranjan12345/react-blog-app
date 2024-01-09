@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import blogService from '../../service/BlogService'
 
 function BlogPostForm() {
-    const { register, handleSubmit, setValue, reset } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false)
 
@@ -42,23 +42,20 @@ function BlogPostForm() {
 
     const onImageSelect = (event) => {
         if (event.target.files && event.target.files[0]) {
-            setImage(URL.createObjectURL(event.target.files[0]));
-            console.log(event.target.files[0]);
-            setValue('blogImage', event.target.files[0])
+            const file = event.target.files[0]
+            setImage(URL.createObjectURL(file));
         }
-        console.log(event.target.files[0]);
     }
 
     const handleBlogPost = async (data) => {
+        console.log(data);
         setLoading(true)
         try {
             const response = await blogService.createBlog(data);
-            openSnackBar("Blog posted with id: ", response.data.blogId);
-            reset();
+            openSnackBar("Blog posted with id: " + response.data.blogId);
         } catch (error) {
-            console.log("blog post error: ", error);
+            console.log("blog post error: " + error);
             openSnackBar("Unable to post blog, try again");
-            reset();
         } finally {
             setLoading(false);
         }
@@ -84,7 +81,7 @@ function BlogPostForm() {
                     Blog Post
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                    Share your ideas through your blogs.
+                    Share and Express your ideas through your blogs.
                 </Typography>
             </Container>
             <Container maxWidth="lg">
@@ -109,7 +106,7 @@ function BlogPostForm() {
                                         {...register("blogDescription", { required: true })} />
                                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
                                         <Grid item xs={12} md={4}>
-                                            <BlogTypeButton {...register("blogType", { required: false, onChange: handleChange })} />
+                                            <BlogTypeButton {...register("blogType", { required: true, onChange: handleChange })} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             <FormControlLabel id='checkboxLabel'

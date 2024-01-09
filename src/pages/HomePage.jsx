@@ -27,7 +27,8 @@ function HomePage() {
           {
             blogs.map(
               (blog, index) => (
-                <Grid key={index} item xs={12} md={6}>
+                <Grid key={index} item xs={12} md={6} >
+
                   <BlogCard post={blog} />
                 </Grid>
               )
@@ -40,3 +41,4 @@ function HomePage() {
 }
 
 export default HomePage
+

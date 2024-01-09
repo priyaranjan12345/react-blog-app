@@ -44,7 +44,7 @@ export class BlogService {
         formData.append("publishDate", date)
         formData.append("blogType", data.blogType)
         formData.append("completed", data.blogCompleted)
-        formData.append("blogImage", data.blogImage)
+        formData.append("blogImage", data.blogImage[0])
 
         return request(
             "POST",

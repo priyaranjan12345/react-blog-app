@@ -1,6 +1,8 @@
-import { Grid, Container, Box, Typography } from '@mui/material'
+import {
+    Grid, Container, Box, Typography
+} from '@mui/material'
 import MainFeaturedPost from '../components/MainFeaturedPost'
-import BlogCard from '../components/BlogCard'
+import MyBlogCard from '../components/MyBlogs/MyBlogCard'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import blogService from '../service/BlogService'
@@ -20,6 +22,7 @@ function MyBlogPage() {
     const [loading, setLoading] = useState(true);
     const username = useSelector(state => state.auth.userData);
 
+
     const myBlogs = async () => {
         try {
             const response = await blogService.getMyBlogs();
@@ -31,10 +34,17 @@ function MyBlogPage() {
         }
     }
 
-    const deleteMyBlog = () => {
+    const deleteMyBlog = async (id) => {
         // call delete blog api
         // on success : myBlogs();
         // on error show toast
+
+        try {
+            await blogService.deleteBlog(id);
+            await myBlogs();
+        } catch (error) {
+            console.log("error on delete: ",error);
+        }
     }
 
     useEffect(() => {
@@ -58,13 +68,14 @@ function MyBlogPage() {
                         blogs.map(
                             (blog, index) => (
                                 <Grid key={index} item xs={12} md={6}>
-                                    <BlogCard post={blog} />
+                                    <MyBlogCard post={blog} onDelete={deleteMyBlog}/>
                                 </Grid>
                             )
                         )
                     }
                 </Grid>
             </Container>
+
         </Box>
     )
 }

@@ -72,6 +72,7 @@ function ThemeSwitch() {
     return (
         <FormControlLabel
             control={<MaterialUISwitch
+                id='themeSwitch'
                 sx={{ marginLeft: 2 }}
                 checked={themeMode === "dark"}
                 onChange={onChangeButton} />}

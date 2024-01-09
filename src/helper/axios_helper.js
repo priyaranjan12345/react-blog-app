@@ -5,7 +5,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 export const request = (method, url, data, headers = {}) => {
     if (getAuthToken() !== null && getAuthToken() !== 'null') {
-        headers = { ...headers, "Authorization": `Bearer ${getAuthToken()}` }
+        headers = { ...headers, "Authorization": `Bearer ${getAuthToken()}`}
     }
 
     return axios({

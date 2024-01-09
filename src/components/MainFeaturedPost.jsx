@@ -27,7 +27,7 @@ function MainFeaturedPost() {
                             Explore What You Want
                         </Typography>
                         <Typography variant="h5" color="inherit" paragraph>
-                            Description
+                            What you do after you create your content is what truly counts.
                         </Typography>
 
                     </Box>
